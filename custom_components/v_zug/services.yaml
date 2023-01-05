@@ -1,0 +1,4 @@
+# Service ID
+turn_off:
+  name: Turn Off
+  description: Turn Off Appliance

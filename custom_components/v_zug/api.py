@@ -23,6 +23,8 @@ class Api:
         self.inactive: bool = False
         self.active: bool = not self.inactive
         self.status: str = ""
+        self.status_action: str = ""
+        self.status_end_time: str = ""
         self.program_end: datetime.time | None = None
         self.device_uuid: str = ""
 
@@ -63,8 +65,11 @@ class Api:
         self.inactive = not (content["Inactive"] == "false")
         self.active = not self.inactive
         self.status = content["Status"]
-        self.status_action = self.status.split("\n")[0]
-        self.status_end_time = self.status.split("\n")[1]
+        status_lst = self.status.split("\n")
+        self.status_action = status_lst[0] if len(status_lst) == 2 else ""
+        self.status_end_time = status_lst[1] if len(status_lst) == 2 else ""
+        # self.status_action = self.status.split("\n")[0]
+        # self.status_end_time = self.status.split("\n")[1]
         # self.program_end = c["ProgramEnd"]["End"]
         self.program_end = (
             ""

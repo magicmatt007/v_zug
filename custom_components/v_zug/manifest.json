@@ -5,11 +5,13 @@
   "documentation": "https://github.com/magicmatt007/v_zug",
   "issue_tracker": "https://github.com/magicmatt007/v_zug/issues",
   "dependencies": [],
-  "codeowners": ["@magicmatt007"],
+  "codeowners": [
+    "@magicmatt007"
+  ],
   "requirements": [],
   "ssdp": [],
   "zeroconf": [],
   "homekit": {},
   "iot_class": "local_polling",
-  "version": "1.0.0"
+  "version": "1.0.1"
 }

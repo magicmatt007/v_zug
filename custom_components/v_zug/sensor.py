@@ -55,6 +55,12 @@ async def async_setup_entry(
         MySensor(
             device_model=device_model,
             device_uuid=device_uuid,
+            sensor_type=SensorType.STATUS_ACTION,
+            coordinator=coordinator,
+        ),
+        MySensor(
+            device_model=device_model,
+            device_uuid=device_uuid,
             sensor_type=SensorType.PROGRAM_END,
             coordinator=coordinator,
         ),
@@ -94,8 +100,8 @@ class MySensor(BaseSensor, SensorEntity):
             return data.program
         if self._sensor_type == SensorType.ACTIVE:
             return data.active
-        if self._sensor_type == SensorType.STATUS:
-            return data.status
+        if self._sensor_type == SensorType.STATUS_ACTION:
+            return data.status_action
         if self._sensor_type == SensorType.PROGRAM_END:
             return data.program_end
         if self._sensor_type == SensorType.MESSAGES:

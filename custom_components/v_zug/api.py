@@ -63,6 +63,8 @@ class Api:
         self.inactive = not (content["Inactive"] == "false")
         self.active = not self.inactive
         self.status = content["Status"]
+        self.status_action = self.status.split("\n")[0]
+        self.status_end_time = self.status.split("\n")[1]
         # self.program_end = c["ProgramEnd"]["End"]
         self.program_end = (
             ""
@@ -84,7 +86,7 @@ class Api:
         messages_txt = ""
         message_dict: dict
         for message_dict in content:
-            date = message_dict["date"]  
+            date = message_dict["date"]
             message = message_dict["message"]
             date_obj = datetime.datetime.fromisoformat(date[:-1])
             time_str = date_obj.strftime("%a @ %H:%M")

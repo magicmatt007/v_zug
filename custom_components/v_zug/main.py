@@ -7,7 +7,8 @@ import aiohttp
 # from .api import Api
 from api import Api
 
-IP_ADDRESS ="192.168.0.186"
+IP_ADDRESS = "192.168.0.186"
+
 
 async def main():
     """Run main program."""
@@ -25,6 +26,9 @@ async def main():
     attrs = vars(api)
     print(f"\n {attrs}")
     # await api.turn_off()
+    # print(api.status)
+    # status_list = api.status.split("\n")
+    # print(status_list)
 
     await asyncio.sleep(2)
 

@@ -16,7 +16,7 @@ class SensorType(StrEnum):
     DEVICE_NAME = "device_name"
     PROGRAM = "program"
     ACTIVE = "active"
-    STATUS = "status"
+    STATUS_ACTION = "status_action"
     PROGRAM_END = "program_end"
     MESSAGES = "messages"
 
@@ -25,6 +25,7 @@ SENSOR_NAMES = {
     SensorType.DEVICE_NAME: "Name",
     SensorType.PROGRAM: "Program",
     SensorType.ACTIVE: "Active",
+    SensorType.STATUS_ACTION: "Status Action",
     SensorType.PROGRAM_END: "Program End",
     SensorType.MESSAGES: "Messages",
 }

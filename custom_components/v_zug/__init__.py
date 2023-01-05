@@ -20,8 +20,8 @@ _LOGGER = logging.getLogger(__name__)
 
 PLATFORMS: list[Platform] = [
     Platform.SENSOR,
+    Platform.BUTTON,
     # Platform.BINARY_SENSOR,
-    # Platform.BUTTON,
 ]
 
 ATTR_NAME = "entity_id"
@@ -30,46 +30,14 @@ DEFAULT_NAME = "<enter course id>"
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up is called when Home Assistant is loading our component."""
-
-    # session = aiohttp_client.async_get_clientsession(hass)
-    # ip_address = entry.data['ip_address']
-
-    # _api = Api(session=session,ip_address=ip_address)
-
-    # hass.data[DOMAIN] = _api
-    # hass.data.setdefault(DOMAIN, {})[entry.entry_id] = my_api
-
-    # # Service turn_off
-    # async def turn_off(call: ServiceCall):
-    #     """Handle the service call turn_off appliance."""
-    #     _LOGGER.warning("Turn_off:")
-    #     # coordinator: MyUpdateCoordinator = hass.data[DOMAIN][config_entry.entry_id]["coordinator"]
-
-    # # Register above services:
-    # hass.services.async_register(DOMAIN, "turn_off", turn_off)
-
-    # username = entry.data['username']
-
-    # Return boolean to indicate that initialization was successful.
     return True
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up entry."""
     ip_address = entry.data["ip_address"]
-    # username = entry.data['username']
-    _LOGGER.warning("User input %s", ip_address)
-
-    # #TO DO: get Api object:
-    # my_api = "dummy_api"
-    # # hass.data[DOMAIN][entry.entry_id] = my_api
-    # hass.data.setdefault(DOMAIN, {})[entry.entry_id] = my_api
-
-    # # hass.data[DOMAIN] = my_api
-
     coordinator = MyUpdateCoordinator(hass, entry, ip_address=ip_address)
     await coordinator.async_config_entry_first_refresh()
-    # await coordinator.async_refresh()
 
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = {
@@ -83,14 +51,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-    # This is called when an entry/configured device is to be removed. The class
-    # needs to unload itself, and remove callbacks. See the classes for further
-    # details
 
     unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
-
-    # if unload_ok:
-    #     hass.data[DOMAIN].pop(entry.entry_id)
 
     return unload_ok
 
@@ -104,7 +66,7 @@ class MyUpdateCoordinator(DataUpdateCoordinator):
             hass,
             _LOGGER,
             # Name of the data. For logging purposes.
-            name="Activ Fitness",
+            name="V-Zug",
             # Polling interval. Will only be polled if there are subscribers.
             update_interval=timedelta(seconds=UPDATE_INTERVAL),
         )
@@ -135,14 +97,7 @@ class MyUpdateCoordinator(DataUpdateCoordinator):
                 await self._api.get_model_description()
                 return self._api
 
-        # except ApiAuthError as err:
-        #     # Raising ConfigEntryAuthFailed will cancel future updates
-        #     # and start a config flow with SOURCE_REAUTH (async_step_reauth)
-        #     raise ConfigEntryAuthFailed from err
-        # except ApiError as err:
-        #     raise UpdateFailed(f"Error communicating with API: {err}")
         except Exception as exception:  # pylint: disable=broad-except
             _LOGGER.error("Error %s in MyCoordinator _async_update_data", exception)
 
         return self._api
-        # return {"update": "Hello update!"}

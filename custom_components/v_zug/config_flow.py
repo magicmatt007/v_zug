@@ -5,9 +5,7 @@ import logging
 from typing import Any
 
 from homeassistant import config_entries
-from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResult
-from homeassistant.exceptions import HomeAssistantError
 import voluptuous as vol
 
 from .const import DOMAIN

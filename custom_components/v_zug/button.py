@@ -1,32 +1,18 @@
 """Platform for sensor integration."""
 import logging
 
-_LOGGER = logging.getLogger(__name__)
-
-
-from homeassistant.const import Platform
-
-
-from homeassistant.components.button import (
-    ButtonEntity,
-)
-
-
+from homeassistant.components.button import ButtonEntity
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import MyUpdateCoordinator
 from .api import Api
-
-from .const import (
-    DOMAIN,
-    ENTITY_NAMES,
-    ENTITY_ICONS,
-    EntityType,
-)
-
 from .base_sensors import BaseEntity
+from .const import DOMAIN, ENTITY_ICONS, ENTITY_NAMES, EntityType
+
+_LOGGER = logging.getLogger(__name__)
 
 # SCAN_INTERVAL = datetime.timedelta(seconds=10)
 
@@ -54,7 +40,10 @@ async def async_setup_entry(
     new_entities = []
     new_entities.append(
         TurnOffButton(
-            device_model=device_model, device_uuid=device_uuid,sensor_type=EntityType.TURN_OFF_BUTTON, coordinator=coordinator
+            device_model=device_model,
+            device_uuid=device_uuid,
+            sensor_type=EntityType.TURN_OFF_BUTTON,
+            coordinator=coordinator,
         )
     )
     async_add_entities(new_entities)
@@ -63,7 +52,9 @@ async def async_setup_entry(
 class TurnOffButton(BaseEntity, ButtonEntity):
     """Turn Off Button"""
 
-    def __init__(self, device_model, device_uuid, sensor_type,coordinator: MyUpdateCoordinator):
+    def __init__(
+        self, device_model, device_uuid, sensor_type, coordinator: MyUpdateCoordinator
+    ):
         """Initialize the sensor. Pass coordinator to CoordinatorEntity."""
         super().__init__(
             device_model=device_model, device_uuid=device_uuid, coordinator=coordinator

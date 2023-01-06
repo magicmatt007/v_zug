@@ -5,7 +5,6 @@ from datetime import timedelta
 import logging
 
 import async_timeout
-
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
@@ -13,16 +12,15 @@ from homeassistant.helpers import aiohttp_client
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .const import DOMAIN, UPDATE_INTERVAL
 from .api import Api
+from .const import DOMAIN, UPDATE_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
 
-PLATFORMS: list[Platform] = [
-    Platform.SENSOR,
-    Platform.BUTTON,
-    # Platform.BINARY_SENSOR,
-]
+# PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.BUTTON]
+# PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.BUTTON]
+# PLATFORMS = ["sensor", "button"]
+PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.BUTTON]
 
 ATTR_NAME = "entity_id"
 DEFAULT_NAME = "<enter course id>"
@@ -89,7 +87,7 @@ class MyUpdateCoordinator(DataUpdateCoordinator):
             # selected_centers= [54] # 54 = Schlieren, 96 = Olten
             # selected_course_names = ["BODYPUMP® 55'"]
 
-            async with async_timeout.timeout(15):
+            async with async_timeout.timeout(20):
                 await self._api.get_device_status()
                 await self._api.get_last_push_notifications()
                 await self._api.get_command_spinning()

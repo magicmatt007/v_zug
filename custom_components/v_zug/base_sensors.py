@@ -10,10 +10,10 @@ from . import MyUpdateCoordinator
 from .const import (
     DEVICE_MODEL,
     DOMAIN,
-    MANUFACTURER,
-    ENTITY_NAMES,
-    SUGGESTED_AREA,
     ENTITY_ICONS,
+    ENTITY_NAMES,
+    MANUFACTURER,
+    SUGGESTED_AREA,
 )
 
 _LOGGER = logging.getLogger(__name__)

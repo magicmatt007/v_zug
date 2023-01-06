@@ -8,9 +8,9 @@ from homeassistant.helpers import entity_platform
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import MyUpdateCoordinator
+from .api import Api
 from .base_sensors import BaseSensor
 from .const import DOMAIN, EntityType
-from .api import Api
 
 _LOGGER = logging.getLogger(__name__)
 

@@ -20,6 +20,9 @@ class EntityType(StrEnum):
     STATUS_END_TIME = "status_end_time"
     PROGRAM_END = "program_end"
     MESSAGES = "messages"
+    MESSAGE_1 = "message_1"
+    MESSAGE_2 = "message_2"
+    MESSAGE_3 = "message_3"
     TURN_OFF_BUTTON = "button"
 
 
@@ -31,6 +34,9 @@ ENTITY_NAMES = {
     EntityType.STATUS_END_TIME: "End Time",
     EntityType.PROGRAM_END: "Program End",
     EntityType.MESSAGES: "Messages",
+    EntityType.MESSAGE_1: "Message 1",
+    EntityType.MESSAGE_2: "Message 2",
+    EntityType.MESSAGE_3: "Message 3",
     EntityType.TURN_OFF_BUTTON: "Turn Off",
 }
 
@@ -42,5 +48,8 @@ ENTITY_ICONS = {
     EntityType.STATUS_END_TIME: "mdi:clock-outline",
     EntityType.PROGRAM_END: "mdi:timer-outline",
     EntityType.MESSAGES: "mdi:message-outline",
+    EntityType.MESSAGE_1: "mdi:message-outline",
+    EntityType.MESSAGE_2: "mdi:message-outline",
+    EntityType.MESSAGE_3: "mdi:message-outline",
     EntityType.TURN_OFF_BUTTON: "mdi:pause",
 }

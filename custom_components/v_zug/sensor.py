@@ -76,6 +76,24 @@ async def async_setup_entry(
             sensor_type=EntityType.MESSAGES,
             coordinator=coordinator,
         ),
+        MySensor(
+            device_model=device_model,
+            device_uuid=device_uuid,
+            sensor_type=EntityType.MESSAGE_1,
+            coordinator=coordinator,
+        ),
+        MySensor(
+            device_model=device_model,
+            device_uuid=device_uuid,
+            sensor_type=EntityType.MESSAGE_2,
+            coordinator=coordinator,
+        ),
+        MySensor(
+            device_model=device_model,
+            device_uuid=device_uuid,
+            sensor_type=EntityType.MESSAGE_3,
+            coordinator=coordinator,
+        ),
     ]
 
     async_add_entities(new_entities)
@@ -114,6 +132,12 @@ class MySensor(BaseSensor, SensorEntity):
             return data.program_end
         if self._sensor_type == EntityType.MESSAGES:
             return data.messages_txt
+        if self._sensor_type == EntityType.MESSAGE_1:
+            return data.message_1_txt
+        if self._sensor_type == EntityType.MESSAGE_2:
+            return data.message_2_txt
+        if self._sensor_type == EntityType.MESSAGE_3:
+            return data.message_3_txt
         return None
 
     async def turn_off(self):

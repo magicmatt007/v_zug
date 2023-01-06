@@ -31,6 +31,9 @@ class Api:
         # Updated in api call get_last_push_notifications
         self.messages: list = []
         self.messages_txt = ""
+        self.message_1_txt = ""
+        self.message_2_txt = ""
+        self.message_3_txt = ""
 
         # Updated in api call get_command_spinning
         self.default_spinning: str = ""
@@ -90,12 +93,21 @@ class Api:
 
         messages_txt = ""
         message_dict: dict
-        for message_dict in content:
+        for index, message_dict in enumerate(content):
             date = message_dict["date"]
             message = message_dict["message"]
             date_obj = datetime.datetime.fromisoformat(date[:-1])
             time_str = date_obj.strftime("%a @ %H:%M")
             messages_txt += f"**{time_str}** {message}\n"
+
+            message_x_txt = f"{time_str}: {message}"
+            if index == 0:
+                self.message_1_txt = message_x_txt
+            elif index == 1:
+                self.message_2_txt = message_x_txt
+            elif index == 2:
+                self.message_3_txt = message_x_txt
+
         if messages_txt:
             messages_txt = messages_txt[:-1]
 

@@ -21,6 +21,9 @@ from .api import Api
 
 from .const import (
     DOMAIN,
+    ENTITY_NAMES,
+    ENTITY_ICONS,
+    EntityType,
 )
 
 from .base_sensors import BaseEntity
@@ -51,7 +54,7 @@ async def async_setup_entry(
     new_entities = []
     new_entities.append(
         TurnOffButton(
-            device_model=device_model, device_uuid=device_uuid, coordinator=coordinator
+            device_model=device_model, device_uuid=device_uuid,sensor_type=EntityType.TURN_OFF_BUTTON, coordinator=coordinator
         )
     )
     async_add_entities(new_entities)
@@ -60,7 +63,7 @@ async def async_setup_entry(
 class TurnOffButton(BaseEntity, ButtonEntity):
     """Turn Off Button"""
 
-    def __init__(self, device_model, device_uuid, coordinator: MyUpdateCoordinator):
+    def __init__(self, device_model, device_uuid, sensor_type,coordinator: MyUpdateCoordinator):
         """Initialize the sensor. Pass coordinator to CoordinatorEntity."""
         super().__init__(
             device_model=device_model, device_uuid=device_uuid, coordinator=coordinator
@@ -74,6 +77,8 @@ class TurnOffButton(BaseEntity, ButtonEntity):
         self._attr_unique_id = f"{Platform.BUTTON}.{DOMAIN}_{device_uuid}_turn_off"
         self._attr_has_entity_name = True
         self._attr_name = "Turn Off"
+        self._attr_name = f"{ENTITY_NAMES[sensor_type]}"
+        self._attr_icon = f"{ENTITY_ICONS[sensor_type]}"
 
     async def async_press(self) -> None:
         """Handle the button press."""

@@ -9,7 +9,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import MyUpdateCoordinator
 from .base_sensors import BaseSensor
-from .const import DOMAIN, SensorType
+from .const import DOMAIN, EntityType
 from .api import Api
 
 _LOGGER = logging.getLogger(__name__)
@@ -37,37 +37,43 @@ async def async_setup_entry(
         MySensor(
             device_model=device_model,
             device_uuid=device_uuid,
-            sensor_type=SensorType.DEVICE_NAME,
+            sensor_type=EntityType.DEVICE_NAME,
             coordinator=coordinator,
         ),
         MySensor(
             device_model=device_model,
             device_uuid=device_uuid,
-            sensor_type=SensorType.PROGRAM,
+            sensor_type=EntityType.PROGRAM,
             coordinator=coordinator,
         ),
         MySensor(
             device_model=device_model,
             device_uuid=device_uuid,
-            sensor_type=SensorType.ACTIVE,
+            sensor_type=EntityType.ACTIVE,
             coordinator=coordinator,
         ),
         MySensor(
             device_model=device_model,
             device_uuid=device_uuid,
-            sensor_type=SensorType.STATUS_ACTION,
+            sensor_type=EntityType.STATUS_ACTION,
             coordinator=coordinator,
         ),
         MySensor(
             device_model=device_model,
             device_uuid=device_uuid,
-            sensor_type=SensorType.PROGRAM_END,
+            sensor_type=EntityType.STATUS_END_TIME,
             coordinator=coordinator,
         ),
         MySensor(
             device_model=device_model,
             device_uuid=device_uuid,
-            sensor_type=SensorType.MESSAGES,
+            sensor_type=EntityType.PROGRAM_END,
+            coordinator=coordinator,
+        ),
+        MySensor(
+            device_model=device_model,
+            device_uuid=device_uuid,
+            sensor_type=EntityType.MESSAGES,
             coordinator=coordinator,
         ),
     ]
@@ -94,17 +100,19 @@ class MySensor(BaseSensor, SensorEntity):
             return None
         data: Api = self.coordinator.data
 
-        if self._sensor_type == SensorType.DEVICE_NAME:
+        if self._sensor_type == EntityType.DEVICE_NAME:
             return data.device_name
-        if self._sensor_type == SensorType.PROGRAM:
+        if self._sensor_type == EntityType.PROGRAM:
             return data.program
-        if self._sensor_type == SensorType.ACTIVE:
+        if self._sensor_type == EntityType.ACTIVE:
             return data.active
-        if self._sensor_type == SensorType.STATUS_ACTION:
+        if self._sensor_type == EntityType.STATUS_ACTION:
             return data.status_action
-        if self._sensor_type == SensorType.PROGRAM_END:
+        if self._sensor_type == EntityType.STATUS_END_TIME:
+            return data.status_end_time
+        if self._sensor_type == EntityType.PROGRAM_END:
             return data.program_end
-        if self._sensor_type == SensorType.MESSAGES:
+        if self._sensor_type == EntityType.MESSAGES:
             return data.messages_txt
         return None
 

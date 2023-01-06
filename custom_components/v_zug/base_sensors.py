@@ -7,7 +7,14 @@ from homeassistant.helpers.entity import DeviceInfo, Entity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from . import MyUpdateCoordinator
-from .const import DEVICE_MODEL, DOMAIN, MANUFACTURER, SENSOR_NAMES, SUGGESTED_AREA
+from .const import (
+    DEVICE_MODEL,
+    DOMAIN,
+    MANUFACTURER,
+    ENTITY_NAMES,
+    SUGGESTED_AREA,
+    ENTITY_ICONS,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -53,4 +60,5 @@ class BaseSensor(BaseEntity):
         self._attr_has_entity_name = True
         self._state = None
         self._attr_unique_id = f"{Platform.SENSOR}.{DOMAIN}_{DEVICE_MODEL.lower()}_{device_uuid}_{sensor_type}"
-        self._attr_name = f"{SENSOR_NAMES[sensor_type]}"
+        self._attr_name = f"{ENTITY_NAMES[sensor_type]}"
+        self._attr_icon = f"{ENTITY_ICONS[sensor_type]}"

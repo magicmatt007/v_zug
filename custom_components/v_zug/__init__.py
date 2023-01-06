@@ -17,9 +17,6 @@ from .const import DOMAIN, UPDATE_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
 
-# PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.BUTTON]
-# PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.BUTTON]
-# PLATFORMS = ["sensor", "button"]
 PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.BUTTON]
 
 ATTR_NAME = "entity_id"

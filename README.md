@@ -1,3 +1,86 @@
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/magicmatt007/v_zug?color=41BDF5&style=for-the-badge)
+![Integration Usage](https://img.shields.io/badge/dynamic/json?color=41BDF5&style=for-the-badge&logo=home-assistant&label=usage&suffix=%20installs&cacheSeconds=15600&url=https://analytics.home-assistant.io/custom_integrations.json&query=$.v_zug.total)
+
+# V-Zug Integration for Home Assistant
+
+This component will allow you to see the status of your V-Zug AdoraWash V2000. The only remove interaction allowed by the V-Zug API is to pause a running program. It then needs to be restarted at the washing machine.
+
+This component might also work to a certain extend with other V-Zug devices.
+
+## Features
+
+### Sensors:
+- **Active**: (TODO Binary): Shows, if appliance is currently active
+- **Action**:
+- **End Time**:
+- **Name**:
+- **Messages Text**:
+- **Message 1 Text**:
+- **Message 2 Text**:
+- **Message 3 Text**:
+- **Name**:
+- **Program**:
+- **Program End**:
+
+### Front End:
+
+#### Good to know:
+
+The sensor "sensor.adorawash_v2000_***messages***" is preformatted for a Markdown card. Look for the ..._messages sensor.
+To use it, use a card of type markdown with the following code:
+
+``` YAML
+- type: markdown
+  content: '{{states.sensor.adorawash_v2000_messages.state}}'
+  title: 'Last messages:'
+
+```
+
+Here is a complete snipnet of my complete front end page:
+
+``` YAML
+- theme: Backend-selected
+title: Wash
+path: wash
+icon: mdi:washing-machine
+badges: []
+cards:
+    - type: entities
+    entities:
+        - entity: sensor.adorawash_v2000_active
+        name: Active
+        - entity: sensor.adorawash_v2000_name
+        name: Name
+        - entity: sensor.adorawash_v2000_program
+        name: Program
+        - entity: sensor.adorawash_v2000_program_end
+        name: Program End
+        - entity: sensor.adorawash_v2000_end_time
+        name: End Time
+        - entity: sensor.adorawash_v2000_status_action
+        name: Action
+        - entity: button.adorawash_v2000_turn_off
+        name: Turn Off
+        - entity: sensor.adorawash_v2000_message_1
+        name: Message 1
+        - entity: sensor.adorawash_v2000_message_2
+        name: Message 2
+        - entity: sensor.adorawash_v2000_message_3
+        name: Message 3
+    title: AdoraWash V2000
+    - type: markdown
+      content: '{{states.sensor.adorawash_v2000_messages.state}}'
+      title: 'Last messages:'
+
+```
+![My Image](img/screenshot.png)
+
+## Usage
+
+Lovelace example: TODO
+
+
 # Notice
 
 The component and platforms in this repository are not meant to be used by a

@@ -24,6 +24,8 @@ This component might also work to a certain extend with other V-Zug devices.
 - **Program End**:
 
 ### Front End:
+![My Image](img/screenshot.png)
+
 
 #### Good to know:
 
@@ -41,45 +43,46 @@ Here is a complete snipnet of my complete front end page:
 
 ``` YAML
 - theme: Backend-selected
-title: Wash
-path: wash
-icon: mdi:washing-machine
-badges: []
-cards:
+  title: Wash
+  path: wash
+  icon: mdi:washing-machine
+  badges: []
+  cards:
     - type: entities
-    entities:
+      entities:
         - entity: sensor.adorawash_v2000_active
-        name: Active
+          name: Active
         - entity: sensor.adorawash_v2000_name
-        name: Name
+          name: Name
         - entity: sensor.adorawash_v2000_program
-        name: Program
+          name: Program
         - entity: sensor.adorawash_v2000_program_end
-        name: Program End
+          name: Program End
         - entity: sensor.adorawash_v2000_end_time
-        name: End Time
+          name: End Time
         - entity: sensor.adorawash_v2000_status_action
-        name: Action
+          name: Action
         - entity: button.adorawash_v2000_turn_off
-        name: Turn Off
+          name: Turn Off
         - entity: sensor.adorawash_v2000_message_1
-        name: Message 1
+          name: Message 1
         - entity: sensor.adorawash_v2000_message_2
-        name: Message 2
+          name: Message 2
         - entity: sensor.adorawash_v2000_message_3
-        name: Message 3
-    title: AdoraWash V2000
+          name: Message 3
+      title: AdoraWash V2000
     - type: markdown
       content: '{{states.sensor.adorawash_v2000_messages.state}}'
       title: 'Last messages:'
-
 ```
-![My Image](img/screenshot.png)
+
 
 ## Usage
 
 Lovelace example: TODO
 
+
+# OLD STUFF FROM TEMPLATE. -> Clean up!
 
 # Notice
 

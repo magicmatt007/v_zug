@@ -33,6 +33,12 @@ async def async_setup_entry(
     device_model = data.device_model
     device_uuid = data.device_uuid
 
+    # MySensor(
+    #     device_model=device_model,
+    #     device_uuid=device_uuid,
+    #     sensor_type=EntityType.ACTIVE,
+    #     coordinator=coordinator,
+    # ),
     new_entities = [
         MySensor(
             device_model=device_model,
@@ -44,12 +50,6 @@ async def async_setup_entry(
             device_model=device_model,
             device_uuid=device_uuid,
             sensor_type=EntityType.PROGRAM,
-            coordinator=coordinator,
-        ),
-        MySensor(
-            device_model=device_model,
-            device_uuid=device_uuid,
-            sensor_type=EntityType.ACTIVE,
             coordinator=coordinator,
         ),
         MySensor(

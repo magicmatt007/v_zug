@@ -3,14 +3,17 @@ from __future__ import annotations
 
 import asyncio
 import datetime
+import logging
 
 import aiohttp
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class Api:
     """Api."""
 
-    def __init__(self, session: aiohttp.ClientSession, ip_address, attempts=2):
+    def __init__(self, session: aiohttp.ClientSession, ip_address, attempts=5):
         """Init."""
         # Session data:
         self.session = session
@@ -53,8 +56,15 @@ class Api:
         for _ in range(self.attempts):
             resp = await self.session.get(url)
             content = await resp.json(content_type=None)
-            if content == {"error": {"code": 503.01}}:
-                await asyncio.sleep(0.1)
+
+            if "error" in content:
+                _LOGGER.warning(
+                    "error: %s attempts: %s / %s",
+                    content["error"],
+                    _ + 1,
+                    self.attempts,
+                )
+                await asyncio.sleep(0.2)
             else:
                 return content
 

@@ -24,6 +24,7 @@ class EntityType(StrEnum):
     MESSAGE_2 = "message_2"
     MESSAGE_3 = "message_3"
     TURN_OFF_BUTTON = "button"
+    PROGRAM_COMPLETED_COUNTER = "program_completed_counter"
 
 
 ENTITY_NAMES = {
@@ -38,6 +39,7 @@ ENTITY_NAMES = {
     EntityType.MESSAGE_2: "Message 2",
     EntityType.MESSAGE_3: "Message 3",
     EntityType.TURN_OFF_BUTTON: "Turn Off",
+    EntityType.PROGRAM_COMPLETED_COUNTER: "Counter",
 }
 
 ENTITY_ICONS = {
@@ -52,4 +54,5 @@ ENTITY_ICONS = {
     EntityType.MESSAGE_2: "mdi:message-outline",
     EntityType.MESSAGE_3: "mdi:message-outline",
     EntityType.TURN_OFF_BUTTON: "mdi:pause",
+    EntityType.PROGRAM_COMPLETED_COUNTER: "mdi:counter",
 }

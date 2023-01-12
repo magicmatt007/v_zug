@@ -28,9 +28,11 @@ async def main():
     # print(api.status)
     # status_list = api.status.split("\n")
     # print(status_list)
-    print(api.message_1_txt)
-    print(api.message_2_txt)
-    print(api.message_3_txt)
+    # print(api.message_1_txt)
+    # print(api.message_2_txt)
+    # print(api.message_3_txt)
+    print(api.messages)
+    print(api.program_completed_counter)
 
     await asyncio.sleep(2)
 

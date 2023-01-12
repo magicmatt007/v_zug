@@ -37,6 +37,7 @@ class Api:
         self.message_1_txt = ""
         self.message_2_txt = ""
         self.message_3_txt = ""
+        self.program_completed_counter = 0
 
         # Updated in api call get_command_spinning
         self.default_spinning: str = ""
@@ -58,7 +59,7 @@ class Api:
             content = await resp.json(content_type=None)
 
             if "error" in content:
-                _LOGGER.warning(
+                _LOGGER.debug(
                     "error: %s attempts: %s / %s",
                     content["error"],
                     _ + 1,
@@ -81,9 +82,6 @@ class Api:
         status_lst = self.status.split("\n")
         self.status_action = status_lst[0] if len(status_lst) == 2 else ""
         self.status_end_time = status_lst[1] if len(status_lst) == 2 else ""
-        # self.status_action = self.status.split("\n")[0]
-        # self.status_end_time = self.status.split("\n")[1]
-        # self.program_end = c["ProgramEnd"]["End"]
         self.program_end = (
             ""
             if content["ProgramEnd"]["End"] == ""
@@ -106,13 +104,29 @@ class Api:
         for index, message_dict in enumerate(content):
             date = message_dict["date"]
             message = message_dict["message"]
-            date_obj = datetime.datetime.fromisoformat(date[:-1])
+            date_obj = datetime.datetime.fromisoformat(
+                date[:-1]
+            )  # api provides time  in UTC
             time_str = date_obj.strftime("%a @ %H:%M")
             messages_txt += f"**{time_str}** {message}\n"
 
             message_x_txt = f"{time_str}: {message}"
             if index == 0:
                 self.message_1_txt = message_x_txt
+                # print(date_obj)
+                if "finished" in message_x_txt:
+                    now = datetime.datetime.now()
+                    delta = now - date_obj
+                    print(delta)
+                    print(delta.total_seconds())
+                    if (
+                        delta.total_seconds() < 60 * 5
+                    ):  # After the program has finished, show 1 for 5 minutes
+                        self.program_completed_counter = 1
+                    else:
+                        self.program_completed_counter = 0
+                else:
+                    self.program_completed_counter = 0
             elif index == 1:
                 self.message_2_txt = message_x_txt
             elif index == 2:

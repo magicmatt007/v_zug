@@ -2,6 +2,7 @@
 
 import logging
 
+from homeassistant.components.sensor import SensorStateClass
 from homeassistant.const import Platform
 from homeassistant.helpers.entity import DeviceInfo, Entity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -14,6 +15,7 @@ from .const import (
     ENTITY_NAMES,
     MANUFACTURER,
     SUGGESTED_AREA,
+    EntityType,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -62,3 +64,5 @@ class BaseSensor(BaseEntity):
         self._attr_unique_id = f"{Platform.SENSOR}.{DOMAIN}_{DEVICE_MODEL.lower()}_{device_uuid}_{sensor_type}"
         self._attr_name = f"{ENTITY_NAMES[sensor_type]}"
         self._attr_icon = f"{ENTITY_ICONS[sensor_type]}"
+        if self._sensor_type == EntityType.PROGRAM_COMPLETED_COUNTER:
+            self._attr_state_class = SensorStateClass.TOTAL_INCREASING

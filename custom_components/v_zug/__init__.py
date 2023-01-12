@@ -77,7 +77,7 @@ class MyUpdateCoordinator(DataUpdateCoordinator):
         This is the place to pre-process the data to lookup tables
         so entities can quickly look up their data.
         """
-        _LOGGER.warning("Hello from _async_update_data")
+        _LOGGER.debug("Hello from _async_update_data")
         try:
             # Note: asyncio.TimeoutError and aiohttp.ClientError are already
             # handled by the data update coordinator.

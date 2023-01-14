@@ -105,7 +105,7 @@ class Api:
             date = message_dict["date"]
             message = message_dict["message"]
             date_obj = datetime.datetime.fromisoformat(
-                date[:-1]
+                date[:-1] + "+00:00"
             )  # api provides time  in UTC
             time_str = date_obj.strftime("%a @ %H:%M")
             messages_txt += f"**{time_str}** {message}\n"
@@ -115,10 +115,13 @@ class Api:
                 self.message_1_txt = message_x_txt
                 # print(date_obj)
                 if "finished" in message_x_txt:
-                    now = datetime.datetime.now()
+                    now = datetime.datetime.now(pytz.utc)
+                    _LOGGER.warning("now: %s", now)
+                    _LOGGER.warning("date_obj: %s", date_obj)
                     delta = now - date_obj
-                    print(delta)
-                    print(delta.total_seconds())
+                    _LOGGER.warning(delta)
+                    _LOGGER.warning(delta.total_seconds())
+
                     if (
                         delta.total_seconds() < 60 * 5
                     ):  # After the program has finished, show 1 for 5 minutes

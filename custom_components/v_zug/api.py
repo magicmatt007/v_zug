@@ -4,9 +4,9 @@ from __future__ import annotations
 import asyncio
 import datetime
 import logging
-import pytz
 
 import aiohttp
+import pytz
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -124,7 +124,9 @@ class Api:
                     _LOGGER.warning(delta.total_seconds())
 
                     if (
-                        delta.total_seconds() < 60 * 5
+                        delta.total_seconds()
+                        < 60
+                        * 10  # HA seems to aggregate statistics every 5 minutes -> Switch on the counter for 10 minutes to capture him
                     ):  # After the program has finished, show 1 for 5 minutes
                         self.program_completed_counter = 1
                     else:

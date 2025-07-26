@@ -1,6 +1,8 @@
 """Constants for the V-Zug integration."""
 
-from homeassistant.backports.enum import StrEnum
+# from homeassistant.backports.enum import StrEnum   # 26.7.25: Depreciated. Replaced by next line
+from enum import StrEnum
+
 
 DOMAIN = "v_zug"
 UPDATE_INTERVAL = 30  # in seconds
